@@ -73,7 +73,7 @@ class Array {
 
 Array.SIZE_RATIO = 3;
 
-memory.copy(to, from, size)
+// memory.copy(to, from, size)
 
 // ptr = 3
 //
@@ -86,4 +86,4 @@ memory.copy(to, from, size)
 // ptr + 2 = 5
 // Float64Array[2] = 3
 
-[1,2,3,4]
+// [1,2,3,4]
