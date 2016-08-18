@@ -3,6 +3,7 @@
 // import 'memory' from './memory';
 let memory = require('./memory');
 
+// Initial start
 class Array {
   constructor() {
     this.length = 0
@@ -10,6 +11,7 @@ class Array {
     this.ptr = memory.allocate(this.length)
   }
 
+  // If not enough space, resizes the array for new item 
   push(value) {
     if (this.length >= this._capacity) {
       // Each time you go over the capacity, you triple the size of allocated memory
@@ -20,6 +22,7 @@ class Array {
     this.length++
   }
 
+  // Copies old array from the old pointer to new pointer
   _resize(size) {
     let oldPtr = this.ptr
     this.ptr = memory.allocate(size)
@@ -31,13 +34,15 @@ class Array {
     this._capacity = size
   }
 
-  get(index) {
+  // Retrieves item and adds offset
+  retrieve(index) {
     if (index < 0 || index >= this.length) {
       throw new Error('Index error')
     }
     return memory.get(this.ptr + index)
   }
 
+  // Makes an extra space that will be filled at the next push
   pop() {
     if (this.length == 0) {
       throw new Error('Index error')
@@ -47,6 +52,7 @@ class Array {
     return value
   }
 
+  // Shifts all of the values after the new value back one position
   insert(index, value) {
     if (index < 0 || index >= this.length) {
       throw new Error('index error')
@@ -61,6 +67,7 @@ class Array {
     this.length++
   }
 
+  // Copies the values backwards to fill the space where item is removed
   remove(index) {
     if (index < 0 || index >= this.length) {
       throw new Error('Index error')

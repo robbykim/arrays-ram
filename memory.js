@@ -4,6 +4,7 @@
 let memory = new Float64Array(1024)
 let head = 0
 
+// Reserves a contiguous block of memory consisting of 'size' boxes. Returns a pointer to the first box, or null
 let allocate = (size) => {
   if (head + size > memory.length) {
     return null
@@ -13,9 +14,11 @@ let allocate = (size) => {
   return start
 }
 
+// Frees the block of memory reserved using allocate (not really though)
 let free = (ptr) => {
 }
 
+// Copies 'size' boxes from 'from' pointer to 'to' pointer.
 let copy = (to, from, size) => {
   if (from === to) {
     return
@@ -32,10 +35,12 @@ let copy = (to, from, size) => {
   }
 }
 
+// Returns the value stored at a certain memory address
 let get = (ptr) => {
   return memory[ptr]
 }
 
+// Sets the value stored at a certain memory address
 let set = (ptr, value) => {
   memory[ptr] = value
 }
