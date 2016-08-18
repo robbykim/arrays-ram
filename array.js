@@ -31,23 +31,59 @@ class Array {
     this._capacity = size
   }
 
-  retrieve(index) {
+  get(index) {
     if (index < 0 || index >= this.length) {
       throw new Error('Index error')
     }
     return memory.get(this.ptr + index)
   }
 
+  pop() {
+    if (this.length == 0) {
+      throw new Error('Index error')
+    }
+    let value = memory.get(this.ptr + this.length - 1)
+    this.length--
+    return value
+  }
+
+  insert(index, value) {
+    if (index < 0 || index >= this.length) {
+      throw new Error('index error')
+    }
+
+    if (this.length >= this._capacity) {
+      this._resize((this.length + 1) * Array.SIZE_RATIO)
+    }
+
+    memory.copy(this.ptr + index + 1, this.ptr + index, this.length - index)
+    memory.set(this.ptr + index, value)
+    this.length++
+  }
+
+  remove(index) {
+    if (index < 0 || index >= this.length) {
+      throw new Error('Index error')
+    }
+
+    memory.copy(this.ptr + index, this.ptr + index + 1, this.length - index - 1)
+    this.length--
+  }
 }
 
 Array.SIZE_RATIO = 3;
 
+memory.copy(to, from, size)
 
+// ptr = 3
+//
+// Float64Array = [-] [-] [-] [1] [2] [3] [4] [5] [6] [7] [] [] [] [] [] [] [] [] [] [] [] []
+//         [ ] [ ] [ ] [x] [ ] [ ] [ ] [ ] [ ] [ ]
+// Array = [0] [1] [2] [3] [4] [5] [ ] [ ] [ ]
+//
+// get(2)
+//
+// ptr + 2 = 5
+// Float64Array[2] = 3
 
-
-
-
-
-
-
-
+[1,2,3,4]
